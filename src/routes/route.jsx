@@ -20,6 +20,7 @@ import ApprovedPremium from "../pages/Dashboard/ApprovedPremium";
 import ApprovedContactRequest from "../pages/Dashboard/ApprovedContactRequest";
 import MyContactRequests from "../pages/Dashboard/MyContactRequests";
 import AboutUs from "../pages/AboutUs";
+import ContactUs from "../pages/ContactUs";
 
 const route = createBrowserRouter([
     {
@@ -56,6 +57,10 @@ const route = createBrowserRouter([
         {
             path: "aboutUs",
             element: <AboutUs></AboutUs>,
+        },
+        {
+            path: "contactUs",
+            element: <ContactUs></ContactUs>,
         },
       ]
     },
