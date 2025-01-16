@@ -2,12 +2,13 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import "animate.css";
 import { useContext, useState} from "react";
 import { AuthContext } from "../providers/AuthProvider";
-import Swal from "sweetalert2"; // Import SweetAlert2 for enhanced logout alert
+import Swal from "sweetalert2"; 
+
 
 const NavBar = () => {
-    const { user, logOut } = useContext(AuthContext); // Using context for user and logout
+    const { user, logOut } = useContext(AuthContext);
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const location = useLocation(); // Get the current location
+    const location = useLocation(); 
 
     const toggleDropdown = () => {
         setDropdownOpen((prev) => !prev);
@@ -69,7 +70,7 @@ const NavBar = () => {
             </li>
             <li>
                 <NavLink
-                    to="/addLost-found"
+                    to="/aboutUs"
                     onClick={closeDropdown}
                     className={({ isActive }) =>
                         isActive
@@ -77,12 +78,12 @@ const NavBar = () => {
                             : "hover:bg-gray-200 px-4 py-2 rounded-full transition"
                     }
                 >
-                    Add Lost & Found Item
+                    About Us
                 </NavLink>
             </li>
             <li>
                 <NavLink
-                    to="/myPosts"
+                    to="/contactUs"
                     onClick={closeDropdown}
                     className={({ isActive }) =>
                         isActive
@@ -90,7 +91,7 @@ const NavBar = () => {
                             : "hover:bg-gray-200 px-4 py-2 rounded-full transition"
                     }
                 >
-                    My Posts
+                    Contact Us
                 </NavLink>
             </li>
             <li>
@@ -150,6 +151,7 @@ const NavBar = () => {
                     <a
                         className="btn border-none text-white font-semibold md:text-2xl bg-gradient-to-r from-blue-300 via-sky-500 to-indigo-500 animate__hinge"
                     >
+                        <img src="https://i.ibb.co.com/kKVs0Rx/Screenshot-2025-01-16-180017.png" alt="" className="w-7 rounded-lg" />
                         SoulLink
                     </a>
                 </div>

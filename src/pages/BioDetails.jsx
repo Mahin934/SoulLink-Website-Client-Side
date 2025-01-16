@@ -6,10 +6,10 @@ import useAxiosPublic from "../hooks/useAxiosPublic";
 import { useState, useEffect } from "react";
 
 const BioDetails = () => {
-    const bio = useLoaderData(); // Data for the specific biodata item
-    const { user } = useAuth(); // Get the logged-in user's info
-    const axiosPublic = useAxiosPublic(); // Axios instance for public requests
-    const navigate = useNavigate(); // Hook to navigate to different routes
+    const bio = useLoaderData(); 
+    const { user } = useAuth(); 
+    const axiosPublic = useAxiosPublic(); 
+    const navigate = useNavigate(); 
 
     const {
         biodataId,
@@ -108,7 +108,7 @@ const BioDetails = () => {
 
     // Navigate to Checkout page and pass biodataId
     const handleRequestContactInfo = () => {
-        navigate(`/checkout/${biodataId}`); // Assuming the Checkout page route is configured to accept biodataId
+        navigate(`/checkout/${biodataId}`); 
     };
 
     return (

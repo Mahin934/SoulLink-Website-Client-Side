@@ -19,6 +19,7 @@ import Checkout from "../pages/Checkout";
 import ApprovedPremium from "../pages/Dashboard/ApprovedPremium";
 import ApprovedContactRequest from "../pages/Dashboard/ApprovedContactRequest";
 import MyContactRequests from "../pages/Dashboard/MyContactRequests";
+import AboutUs from "../pages/AboutUs";
 
 const route = createBrowserRouter([
     {
@@ -52,6 +53,10 @@ const route = createBrowserRouter([
             path: "checkout/:biodataId",
             element: <Checkout></Checkout>,
         },
+        {
+            path: "aboutUs",
+            element: <AboutUs></AboutUs>,
+        },
       ]
     },
     {
@@ -61,7 +66,7 @@ const route = createBrowserRouter([
         // Admin
         {
             path: "users",
-            element: <AllUsers></AllUsers>,
+            element: <AdminRoute><AllUsers></AllUsers></AdminRoute>,
         },
         {
             path: "approvedPremium",
