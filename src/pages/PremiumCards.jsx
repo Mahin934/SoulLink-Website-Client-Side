@@ -2,23 +2,21 @@ import React, { useEffect, useState } from 'react';
 import { FaUser, FaBirthdayCake, FaMapMarkerAlt } from 'react-icons/fa';
 import { MdOutlineNumbers } from "react-icons/md";
 import { useNavigate } from 'react-router-dom'; // To handle navigation
-
 import axios from 'axios';
 
 const PremiumCards = () => {
     const [biodata, setBiodata] = useState([]);
     const [premiumData, setPremiumData] = useState([]);
     const [loading, setLoading] = useState(true);
-    const navigate = useNavigate(); // Use navigate for programmatic navigation
+    const [sortOrder, setSortOrder] = useState('ascending'); // State for dropdown selection
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // Fetch biodata data
                 const biodataResponse = await axios.get('http://localhost:5000/biodata');
                 setBiodata(biodataResponse.data);
 
-                // Fetch premium data
                 const premiumResponse = await axios.get('http://localhost:5000/premiums');
                 setPremiumData(premiumResponse.data);
 
@@ -59,6 +57,17 @@ const PremiumCards = () => {
         }
     });
 
+    // Sort data based on age and dropdown selection
+    const sortedRequests = uniqueRequests.sort((a, b) => {
+        if (sortOrder === 'ascending') {
+            return a.biodata.age - b.biodata.age;
+        }
+        return b.biodata.age - a.biodata.age;
+    });
+
+    // Limit to latest 6 cards
+    const limitedRequests = sortedRequests.slice(0, 6);
+
     // Handle navigation to bio details page
     const handleViewDetails = (id) => {
         navigate(`/bioDetails/${id}`);
@@ -68,9 +77,23 @@ const PremiumCards = () => {
         <div className="py-10">
             <h1 className="text-2xl font-bold mb-6">Approved Premium Cards</h1>
 
+            {/* Dropdown for sorting */}
+            <div className="mb-6">
+                <label htmlFor="sortOrder" className="mr-2 font-semibold">Sort by Age:</label>
+                <select
+                    id="sortOrder"
+                    value={sortOrder}
+                    onChange={(e) => setSortOrder(e.target.value)}
+                    className="p-2 border rounded"
+                >
+                    <option value="ascending">Ascending</option>
+                    <option value="descending">Descending</option>
+                </select>
+            </div>
+
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {uniqueRequests.length > 0 ? (
-                    uniqueRequests.map(request => (
+                {limitedRequests.length > 0 ? (
+                    limitedRequests.map(request => (
                         <div key={request._id} className="border rounded-lg p-4 shadow-md">
                             <img
                                 src={request.biodata.profileImage}
@@ -81,7 +104,7 @@ const PremiumCards = () => {
 
                             <div className="mt-2">
                                 <p className="flex items-center">
-                                <MdOutlineNumbers className="mr-2 text-gray-600"/>
+                                    <MdOutlineNumbers className="mr-2 text-gray-600" />
                                     BiodataID: {request.biodata.biodataId}
                                 </p>
                                 <p className="flex items-center">
@@ -98,10 +121,10 @@ const PremiumCards = () => {
                                 </p>
                             </div>
 
-                            <div className='flex justify-center'>
+                            <div className="flex justify-center">
                                 <button
                                     onClick={() => handleViewDetails(request.biodata._id)}
-                                    className="mt-4  bg-blue-500 text-white px-12 py-2 rounded-full hover:bg-blue-700"
+                                    className="mt-4 bg-blue-500 text-white px-12 py-2 rounded-full hover:bg-blue-700"
                                 >
                                     View Details
                                 </button>
