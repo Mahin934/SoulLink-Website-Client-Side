@@ -1,14 +1,16 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
 import "animate.css";
-import { useContext, useState} from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../providers/AuthProvider";
-import Swal from "sweetalert2"; 
+import Swal from "sweetalert2";
+import useAdmin from "../hooks/useAdmin";
 
 
 const NavBar = () => {
     const { user, logOut } = useContext(AuthContext);
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const location = useLocation(); 
+    const [isAdmin] = useAdmin();
+    const location = useLocation();
 
     const toggleDropdown = () => {
         setDropdownOpen((prev) => !prev);
@@ -94,19 +96,32 @@ const NavBar = () => {
                     Contact Us
                 </NavLink>
             </li>
-            <li>
-                <NavLink
-                    to="/dashboard"
-                    onClick={closeDropdown}
-                    className={({ isActive }) =>
-                        isActive
-                            ? "text-white font-semibold rounded-full shadow-md bg-gradient-to-r from-blue-300 via-sky-500 to-indigo-500 hover:from-blue-400 hover:via-sky-600 hover:to-indigo-600 transition px-4 py-2"
-                            : "hover:bg-gray-200 px-4 py-2 rounded-full transition"
-                    }
-                >
-                    Dashboard 
-                </NavLink>
-            </li>
+            {
+                user && isAdmin && (
+                    <li>
+                        <Link
+                            to="/dashboard/adminDashboard"
+                            className="hover:bg-gray-200 px-4 py-2 rounded-full transition"
+                            onClick={closeDropdown}
+                        >
+                            Dashboard
+                        </Link>
+                    </li>
+                )
+            }
+            {
+                user && !isAdmin && (
+                    <li>
+                        <Link
+                            to="/dashboard/userDashboard"
+                            className="hover:bg-gray-200 px-4 py-2 rounded-full transition"
+                            onClick={closeDropdown}
+                        >
+                            Dashboard
+                        </Link>
+                    </li>
+                )
+            }
         </>
     );
 
@@ -184,7 +199,7 @@ const NavBar = () => {
                                 Log Out
                             </button>
                         </div>
-                     ) : ( 
+                    ) : (
                         <div className="join animate__heartBeat">
                             <Link
                                 to="/register"
@@ -199,7 +214,7 @@ const NavBar = () => {
                                 Log in
                             </Link>
                         </div>
-                       )}  
+                    )}
                 </div>
             </div>
         </div>

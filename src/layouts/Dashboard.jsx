@@ -31,7 +31,7 @@ const Dashboard = () => {
                         isAdmin ? <>
                             <li>
                                 <NavLink
-                                    to="/dashboard/admin"
+                                    to="/dashboard/adminDashboard"
                                     className={({ isActive }) =>
                                         isActive
                                             ? "flex items-center gap-3 bg-blue-700 p-3 rounded"
