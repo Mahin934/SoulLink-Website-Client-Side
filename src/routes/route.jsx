@@ -22,6 +22,7 @@ import MyContactRequests from "../pages/Dashboard/MyContactRequests";
 import AboutUs from "../pages/AboutUs";
 import ContactUs from "../pages/ContactUs";
 import AdminDashboard from "../pages/Dashboard/AdminDashboard";
+import UserDashboard from "../pages/Dashboard/UserDashboard";
 
 const route = createBrowserRouter([
     {
@@ -89,19 +90,23 @@ const route = createBrowserRouter([
         // Normal Users
         {
            path: "editBio",
-           element: <EditBio></EditBio>,
+           element: <PrivateRoute><EditBio></EditBio></PrivateRoute>,
         },
         {
            path: "viewDetails",
-           element: <ViewDetails></ViewDetails>,
+           element: <PrivateRoute><ViewDetails></ViewDetails></PrivateRoute>,
         },
         {
            path: "favourite",
-           element: <UserFavouriteBio></UserFavouriteBio>,
+           element: <PrivateRoute><UserFavouriteBio></UserFavouriteBio></PrivateRoute>,
         },
         {
            path: "myContactRequests",
-           element: <MyContactRequests></MyContactRequests>,
+           element: <PrivateRoute><MyContactRequests></MyContactRequests></PrivateRoute>,
+        },
+        {
+           path: "userDashboard",
+           element: <PrivateRoute><UserDashboard></UserDashboard></PrivateRoute>,
         },
       ]
     },

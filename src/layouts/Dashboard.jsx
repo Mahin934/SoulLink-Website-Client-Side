@@ -26,6 +26,7 @@ const Dashboard = () => {
             {/* Sidebar */}
             <div className="w-1/4 bg-blue-500 text-white p-4">
                 <h2 className="text-lg font-bold mb-4">Dashboard</h2>
+
                 <ul className="space-y-3">
                     {
                         isAdmin ? <>
@@ -94,6 +95,19 @@ const Dashboard = () => {
                         </>
                             :
                             <>
+                                <li>
+                                    <NavLink
+                                        to="/dashboard/userDashboard"
+                                        className={({ isActive }) =>
+                                            isActive
+                                                ? "flex items-center gap-3 bg-blue-700 p-3 rounded"
+                                                : "flex items-center gap-3 hover:bg-blue-600 p-3 rounded"
+                                        }
+                                    >
+                                        <FaUserEdit size={20} />
+                                        User Dashboard
+                                    </NavLink>
+                                </li>
                                 <li>
                                     <NavLink
                                         to="/dashboard/editBio"
