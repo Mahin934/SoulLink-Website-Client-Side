@@ -6,27 +6,32 @@ const SuccessCounter = () => {
   const [femaleCount, setFemaleCount] = useState(0);
   const [marriagesCount, setMarriagesCount] = useState(0);
 
-  // Fetch biodata from the API
+  // Fetching biodata and success data from the API
   useEffect(() => {
-    const fetchBiodata = async () => {
+    const fetchCounts = async () => {
       try {
-        const response = await fetch("http://localhost:5000/biodata");
-        const data = await response.json();
+        // Fetch biodata
+        const biodataResponse = await fetch("http://localhost:5000/biodata");
+        const biodata = await biodataResponse.json();
 
         // Count males and females
-        const maleBiodatas = data.filter(bio => bio.biodataType === "Male");
-        const femaleBiodatas = data.filter(bio => bio.biodataType === "Female");
+        const maleBiodatas = biodata.filter(bio => bio.biodataType === "Male");
+        const femaleBiodatas = biodata.filter(bio => bio.biodataType === "Female");
 
         setMaleCount(maleBiodatas.length);
         setFemaleCount(femaleBiodatas.length);
 
-        setMarriagesCount(0); 
+        // Fetch successes
+        const successesResponse = await fetch("http://localhost:5000/successes");
+        const successes = await successesResponse.json();
+
+        setMarriagesCount(successes.length); 
       } catch (error) {
-        console.error("Error fetching biodata:", error);
+        console.error("Error fetching data:", error);
       }
     };
 
-    fetchBiodata();
+    fetchCounts();
   }, []);
 
   return (

@@ -52,7 +52,7 @@ const UserDashboard = () => {
 
     return (
         <div className="got-married-form container mx-auto px-4 py-8">
-            <div className="py-16 text-center rounded-b-lg">
+            <div className=" text-center rounded-b-lg">
                 <SectionTitle heading="Got Married" subHeading="Successes" />
             </div>
             <form
