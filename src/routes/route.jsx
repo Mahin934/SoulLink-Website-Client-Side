@@ -38,12 +38,12 @@ const route = createBrowserRouter([
         {
             path: "biodata",
             element: <Biodatas></Biodatas>,
-            loader: () => fetch("http://localhost:5000/biodata")
+            loader: () => fetch("https://soul-link-server.vercel.app/biodata")
         },
         {
             path: "bioDetails/:id",
             element: <PrivateRoute><BioDetails></BioDetails></PrivateRoute>,
-            loader: ({ params }) => fetch(`http://localhost:5000/biodata/${params.id}`)
+            loader: ({ params }) => fetch(`https://soul-link-server.vercel.app/biodata/${params.id}`)
         },
         {
             path: "login",

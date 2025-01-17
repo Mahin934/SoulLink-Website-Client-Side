@@ -15,7 +15,7 @@ const UserDashboard = () => {
         };
 
         try {
-            const response = await fetch("http://localhost:5000/successes", {
+            const response = await fetch("https://soul-link-server.vercel.app/successes", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

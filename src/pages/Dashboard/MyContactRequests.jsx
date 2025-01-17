@@ -13,12 +13,12 @@ const MyContactRequests = () => {
         const fetchData = async () => {
             try {
                 // Fetch biodata data
-                const biodataResponse = await axios.get('http://localhost:5000/biodata');
+                const biodataResponse = await axios.get('https://soul-link-server.vercel.app/biodata');
                 console.log('Biodata fetched:', biodataResponse.data);
                 setBiodata(biodataResponse.data);
 
                 // Fetch premium data
-                const premiumResponse = await axios.get('http://localhost:5000/premiums');
+                const premiumResponse = await axios.get('https://soul-link-server.vercel.app/premiums');
                 console.log('Premiums fetched:', premiumResponse.data);
                 setPremiumData(premiumResponse.data);
 

@@ -20,7 +20,7 @@ const BioInfos = () => {
     useEffect(() => {
         const fetchBiodata = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/biodata');
+                const response = await axios.get('https://soul-link-server.vercel.app/biodata');
                 const userBiodata = response.data.find(data => data.contactEmail === user?.email);
 
                 if (userBiodata) {
@@ -53,7 +53,7 @@ const BioInfos = () => {
 
     const refetchBiodata = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/biodata');
+            const response = await axios.get('https://soul-link-server.vercel.app/biodata');
             const updatedBiodata = response.data.find(data => data.contactEmail === user?.email);
             setBiodata(updatedBiodata); // Set the updated data
         } catch (error) {
@@ -63,7 +63,7 @@ const BioInfos = () => {
 
     const onSubmit = async (data) => {
         try {
-            const response = await axios.put(`http://localhost:5000/biodata/${biodata._id}`, data);
+            const response = await axios.put(`https://soul-link-server.vercel.app/biodata/${biodata._id}`, data);
             console.log('Updated Biodata:', response.data);
             Swal.fire({
                 icon: 'success',

@@ -12,7 +12,7 @@ const ViewDetails = () => {
     useEffect(() => {
         const fetchBiodata = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/biodata');
+                const response = await axios.get('https://soul-link-server.vercel.app/biodata');
                 const userBiodata = response.data.find(data => data.contactEmail === user?.email);
 
                 if (userBiodata) {

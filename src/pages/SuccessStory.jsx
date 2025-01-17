@@ -8,7 +8,7 @@ const SuccessStory = () => {
   useEffect(() => {
     const fetchSuccessStories = async () => {
       try {
-        const response = await fetch("http://localhost:5000/successes");
+        const response = await fetch("https://soul-link-server.vercel.app/successes");
         const data = await response.json();
         setSuccessStories(data);
       } catch (error) {

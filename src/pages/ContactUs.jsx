@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
 
 const ContactUs = () => {
@@ -19,6 +20,9 @@ const ContactUs = () => {
 
   return (
     <div className="bg-gradient-to-r from-indigo-500 to-purple-700 text-white my-20 py-16 px-6 md:px-16 lg:px-32">
+      <Helmet>
+                      <title>SoulLink | Contact Us</title>
+                  </Helmet>
       <div className="flex justify-center">
         <img
           src="https://i.ibb.co/kKVs0Rx/Screenshot-2025-01-16-180017.png"

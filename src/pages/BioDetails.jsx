@@ -26,7 +26,7 @@ const BioDetails = () => {
     useEffect(() => {
         const fetchSimilarBiodata = async () => {
             try {
-                const response = await axiosPublic.get("http://localhost:5000/biodata");
+                const response = await axiosPublic.get("https://soul-link-server.vercel.app/biodata");
                 const allBiodata = response.data;
 
                 // Filter similar biodata based on gender (biodataType)

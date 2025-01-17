@@ -4,6 +4,7 @@ import { MdCheckCircleOutline } from "react-icons/md";
 import useAdmin from "../hooks/useAdmin";
 import { AuthContext } from "../providers/AuthProvider";
 import { useContext } from "react";
+import { Helmet } from "react-helmet-async";
 
 const Dashboard = () => {
 
@@ -24,6 +25,9 @@ const Dashboard = () => {
 
     return (
         <div className="md:container mx-auto flex min-h-screen">
+            <Helmet>
+                <title>SoulLink | Dashboard</title>
+            </Helmet>
             {/* Sidebar */}
             <div className="w-1/4 bg-blue-500 text-white p-4">
                 <h2 className="text-lg font-bold mb-4">Dashboard</h2>

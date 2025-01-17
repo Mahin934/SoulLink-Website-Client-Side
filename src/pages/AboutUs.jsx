@@ -1,9 +1,13 @@
 import React from "react";
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 
 const AboutUs = () => {
     return (
         <div className="bg-gradient-to-r from-purple-500 to-pink-500 text-white my-20 py-16 px-6 md:px-16 lg:px-32">
+            <Helmet>
+                            <title>SoulLink | About US</title>
+                        </Helmet>
             {/* Header Section */}
             <div className="text-center mb-12">
                 <h1 className="text-4xl md:text-5xl font-extrabold mb-4">

@@ -68,12 +68,12 @@ const EditBio = () => {
         <div className="p-6">
             <div>
             <SectionTitle 
-                heading="Edit Your Biodata" 
+                heading="Create & Edit Biodata" 
                 subHeading="Update Information"
             />
             </div>
-            <h2 className="text-xl font-bold mb-4">Edit Biodata</h2>
-            <div className="flex gap-4">
+            <h2 className="text-xl text-center mt-32 font-bold mb-4">Create & Edit Biodata</h2>
+            <div className="flex gap-4 justify-center">
                 <div>
                 <button
                     className="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"

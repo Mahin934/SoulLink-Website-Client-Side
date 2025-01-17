@@ -14,10 +14,10 @@ const PremiumCards = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const biodataResponse = await axios.get('http://localhost:5000/biodata');
+                const biodataResponse = await axios.get('https://soul-link-server.vercel.app/biodata');
                 setBiodata(biodataResponse.data);
 
-                const premiumResponse = await axios.get('http://localhost:5000/premiums');
+                const premiumResponse = await axios.get('https://soul-link-server.vercel.app/premiums');
                 setPremiumData(premiumResponse.data);
 
                 setLoading(false);

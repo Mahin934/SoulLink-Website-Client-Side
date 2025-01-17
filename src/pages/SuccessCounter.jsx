@@ -11,7 +11,7 @@ const SuccessCounter = () => {
     const fetchCounts = async () => {
       try {
         // Fetch biodata
-        const biodataResponse = await fetch("http://localhost:5000/biodata");
+        const biodataResponse = await fetch("https://soul-link-server.vercel.app/biodata");
         const biodata = await biodataResponse.json();
 
         // Count males and females
@@ -22,7 +22,7 @@ const SuccessCounter = () => {
         setFemaleCount(femaleBiodatas.length);
 
         // Fetch successes
-        const successesResponse = await fetch("http://localhost:5000/successes");
+        const successesResponse = await fetch("https://soul-link-server.vercel.app/successes");
         const successes = await successesResponse.json();
 
         setMarriagesCount(successes.length); 

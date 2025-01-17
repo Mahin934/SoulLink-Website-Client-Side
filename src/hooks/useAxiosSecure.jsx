@@ -5,7 +5,7 @@ import { AuthContext } from "../providers/AuthProvider";
 
 
 const axiosSecure = axios.create({
-    baseURL: "http://localhost:5000", // Replace with your backend URL
+    baseURL: "https://soul-link-server.vercel.app", // Replace with your backend URL
 });
 
 const useAxiosSecure = () => {
