@@ -23,6 +23,7 @@ import AboutUs from "../pages/AboutUs";
 import ContactUs from "../pages/ContactUs";
 import AdminDashboard from "../pages/Dashboard/AdminDashboard";
 import UserDashboard from "../pages/Dashboard/UserDashboard";
+import AdminSuccessStory from "../pages/Dashboard/AdminSuccessStory";
 
 const route = createBrowserRouter([
     {
@@ -86,6 +87,10 @@ const route = createBrowserRouter([
         {
             path: "approvedContactRequest",
             element: <AdminRoute><ApprovedContactRequest></ApprovedContactRequest></AdminRoute>,
+        },
+        {
+            path: "adminSuccess",
+            element: <AdminRoute><AdminSuccessStory></AdminSuccessStory></AdminRoute>,
         },
         // Normal Users
         {

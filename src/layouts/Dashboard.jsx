@@ -1,5 +1,6 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { FaUserEdit, FaEye, FaUserFriends, FaHeart, FaSignOutAlt, FaHome, FaUserShield, FaUsers, FaStar, FaEnvelopeOpen } from "react-icons/fa";
+import { MdCheckCircleOutline } from "react-icons/md";
 import useAdmin from "../hooks/useAdmin";
 import { AuthContext } from "../providers/AuthProvider";
 import { useContext } from "react";
@@ -91,7 +92,7 @@ const Dashboard = () => {
                                             : "flex items-center gap-3 hover:bg-blue-600 p-3 rounded"
                                     }
                                 >
-                                    <FaEnvelopeOpen size={20} />
+                                    <MdCheckCircleOutline size={20}/>
                                     Successes
                                 </NavLink>
                             </li>
