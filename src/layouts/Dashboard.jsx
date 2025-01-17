@@ -83,6 +83,19 @@ const Dashboard = () => {
                                 </NavLink>
                             </li>
                             <li>
+                                <NavLink
+                                    to="/dashboard/adminSuccess"
+                                    className={({ isActive }) =>
+                                        isActive
+                                            ? "flex items-center gap-3 bg-blue-700 p-3 rounded"
+                                            : "flex items-center gap-3 hover:bg-blue-600 p-3 rounded"
+                                    }
+                                >
+                                    <FaEnvelopeOpen size={20} />
+                                    Successes
+                                </NavLink>
+                            </li>
+                            <li>
                                 <button
                                     className="flex items-center gap-3 w-full bg-red-500 hover:bg-red-600 p-3 rounded text-white mt-6"
                                     onClick={handleLogout}
