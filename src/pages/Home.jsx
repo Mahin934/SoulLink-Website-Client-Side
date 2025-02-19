@@ -6,6 +6,7 @@ import SuccessCounter from "./SuccessCounter";
 import SuccessStory from "./SuccessStory";
 import MembershipBenefits from "./MembershipBenefits";
 import UserReviews from "./UserReviews";
+import Safety from "./Safety";
 
 
 const Home = () => {
@@ -34,6 +35,9 @@ const Home = () => {
             </div>
             <div className="py-16">
                 <UserReviews></UserReviews>
+            </div>
+            <div className="py-16">
+                <Safety></Safety>
             </div>
         </div>
     );
