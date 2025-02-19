@@ -5,7 +5,7 @@ import { Helmet } from "react-helmet-async";
 const Biodatas = () => {
     const allBiodatas = useLoaderData(); 
     const [currentPage, setCurrentPage] = useState(1); 
-    const itemsPerPage = 6; // Items per page
+    const itemsPerPage = 6; 
     const totalPages = Math.ceil(allBiodatas.length / itemsPerPage); 
 
     const [filters, setFilters] = useState({
@@ -14,37 +14,39 @@ const Biodatas = () => {
         division: "all", 
     });
 
-    // Filtered biodata
     const [filteredBiodatas, setFilteredBiodatas] = useState(allBiodatas);
 
-    // Handle filter changes
     const handleFilterChange = (e) => {
         const { name, value } = e.target;
-
-        // Update filters
         setFilters((prev) => ({
             ...prev,
             [name]: name === "ageRange" ? value.split(",").map(Number) : value,
         }));
     };
 
-    // Apply filters whenever filters change
     useEffect(() => {
         const { ageRange, type, division } = filters;
-
         const filtered = allBiodatas.filter((biodata) => {
             const ageMatch = biodata.age >= ageRange[0] && biodata.age <= ageRange[1];
             const typeMatch = type === "all" || biodata.biodataType === type;
             const divisionMatch = division === "all" || biodata.permanentDivision === division;
-
             return ageMatch && typeMatch && divisionMatch;
         });
 
         setFilteredBiodatas(filtered);
-        setCurrentPage(1); 
+        setCurrentPage(1);
     }, [filters, allBiodatas]);
 
-    // Calculate biodatas for the current page
+    const handleSortAscending = () => {
+        const sorted = [...filteredBiodatas].sort((a, b) => a.age - b.age);
+        setFilteredBiodatas(sorted);
+    };
+
+    const handleSortDescending = () => {
+        const sorted = [...filteredBiodatas].sort((a, b) => b.age - a.age);
+        setFilteredBiodatas(sorted);
+    };
+
     const paginatedBiodatas = filteredBiodatas.slice(
         (currentPage - 1) * itemsPerPage,
         currentPage * itemsPerPage
@@ -56,7 +58,7 @@ const Biodatas = () => {
                 <title>SoulLink | Biodatas</title>
             </Helmet>
 
-            {/* Filter Section */}
+            {/* Sidebar Filters */}
             <div className="w-1/4 bg-gray-100 p-6 rounded-lg shadow-md">
                 <h2 className="text-xl font-semibold mb-4">Filters</h2>
 
@@ -98,7 +100,7 @@ const Biodatas = () => {
                 </div>
 
                 {/* Division Filter */}
-                <div>
+                <div className="mb-4">
                     <label className="block font-semibold mb-2">Division</label>
                     <select
                         name="division"
@@ -116,9 +118,25 @@ const Biodatas = () => {
                         <option value="Sylhet">Sylhet</option>
                     </select>
                 </div>
+
+                {/* Sorting Buttons */}
+                <div className="mb-4">
+                    <button
+                        onClick={handleSortAscending}
+                        className="w-full mb-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
+                    >
+                        Ascending Age
+                    </button>
+                    <button
+                        onClick={handleSortDescending}
+                        className="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
+                    >
+                        Descending Age
+                    </button>
+                </div>
             </div>
 
-            {/* Biodatas Section */}
+            {/* Biodata Cards */}
             <div className="w-3/4">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {paginatedBiodatas.map((biodata, index) => (
@@ -159,16 +177,18 @@ const Biodatas = () => {
                     <button
                         disabled={currentPage === 1}
                         onClick={() => setCurrentPage((prev) => prev - 1)}
-                        className={`px-4 py-2 mr-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition ${currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
-                            }`}
+                        className={`px-4 py-2 mr-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition ${
+                            currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
+                        }`}
                     >
                         Previous
                     </button>
                     <button
                         disabled={currentPage === totalPages}
                         onClick={() => setCurrentPage((prev) => prev + 1)}
-                        className={`px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition ${currentPage === totalPages ? "opacity-50 cursor-not-allowed" : ""
-                            }`}
+                        className={`px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition ${
+                            currentPage === totalPages ? "opacity-50 cursor-not-allowed" : ""
+                        }`}
                     >
                         Next
                     </button>
