@@ -5,9 +5,12 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from 'sweetalert2';
 import BioInfos from "./BioInfos";
 import SectionTitle from "../SectionTitle";
+import { DarkModeContext } from "../../providers/DarkModeProvider";
+
 
 const EditBio = () => {
     const { user } = useContext(AuthContext); // Fetch logged-in user's details
+    const { darkMode } = useContext(DarkModeContext); // Access darkMode context
     const axiosSecure = useAxiosSecure(); // Use secure Axios instance
     const [showModal, setShowModal] = useState(false);
     const [formData, setFormData] = useState({
@@ -63,35 +66,33 @@ const EditBio = () => {
         }
     };
 
-
     return (
-        <div className="p-6">
+        <div className={`p-6 ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-800'}`}>
             <div>
-            <SectionTitle 
-                heading="Create & Edit Biodata" 
-                subHeading="Update Information"
-            />
+                <SectionTitle 
+                    heading="Create & Edit Biodata" 
+                    subHeading="Update Information"
+                />
             </div>
             <h2 className="text-xl text-center mt-32 font-bold mb-4">Create & Edit Biodata</h2>
             <div className="flex gap-4 justify-center">
                 <div>
-                <button
-                    className="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-                    onClick={() => setShowModal(true)}
-                >
-                    <FaPlus />
-                    Create Biodata
-                </button>
+                    <button
+                        className={`flex items-center gap-2 ${darkMode ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-500 hover:bg-blue-600'} text-white px-4 py-2 rounded`}
+                        onClick={() => setShowModal(true)}
+                    >
+                        <FaPlus />
+                        Create Biodata
+                    </button>
                 </div>
                 <div>
-                    <BioInfos></BioInfos>
+                    <BioInfos />
                 </div>
             </div>
 
-
             {showModal && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-                    <div className="bg-white p-6 rounded shadow-lg w-full max-w-3xl">
+                    <div className={`bg-white ${darkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-800'} p-6 rounded shadow-lg w-full max-w-3xl`}>
                         <h3 className="text-lg font-bold mb-4">Create Biodata</h3>
                         <form onSubmit={handleSubmit}>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -99,7 +100,7 @@ const EditBio = () => {
                                     Biodata Type <span className="text-red-500">*</span>
                                     <select
                                         name="biodataType"
-                                        className="w-full border p-2 rounded"
+                                        className={`w-full border p-2 rounded ${darkMode ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-800'}`}
                                         onChange={handleInputChange}
                                         required
                                     >
@@ -135,7 +136,7 @@ const EditBio = () => {
                                     <input
                                         type="date"
                                         name="dob"
-                                        className="w-full border p-2 rounded"
+                                        className={`w-full border p-2 rounded ${darkMode ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-800'}`}
                                         onChange={handleInputChange}
                                         required
                                     />
@@ -145,7 +146,7 @@ const EditBio = () => {
                                     Height <span className="text-red-500">*</span>
                                     <select
                                         name="height"
-                                        className="w-full border p-2 rounded"
+                                        className={`w-full border p-2 rounded ${darkMode ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-800'}`}
                                         onChange={handleInputChange}
                                         required
                                     >
@@ -161,7 +162,7 @@ const EditBio = () => {
                                     <input
                                         type="number"
                                         name="weight"
-                                        className="w-full border p-2 rounded"
+                                        className={`w-full border p-2 rounded ${darkMode ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-800'}`}
                                         onChange={handleInputChange}
                                         required
                                     />
@@ -172,7 +173,7 @@ const EditBio = () => {
                                     <input
                                         type="number"
                                         name="age"
-                                        className="w-full border p-2 rounded"
+                                        className={`w-full border p-2 rounded ${darkMode ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-800'}`}
                                         onChange={handleInputChange}
                                     />
                                 </label>
@@ -182,7 +183,7 @@ const EditBio = () => {
                                     <input
                                         type="text"
                                         name="occupation"
-                                        className="w-full border p-2 rounded"
+                                        className={`w-full border p-2 rounded ${darkMode ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-800'}`}
                                         onChange={handleInputChange}
                                         required
                                     />
@@ -192,7 +193,7 @@ const EditBio = () => {
                                     Race <span className="text-red-500">*</span>
                                     <select
                                         name="race"
-                                        className="w-full border p-2 rounded"
+                                        className={`w-full border p-2 rounded ${darkMode ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-800'}`}
                                         onChange={handleInputChange}
                                         required
                                     >
@@ -208,7 +209,7 @@ const EditBio = () => {
                                     <input
                                         type="text"
                                         name="fatherName"
-                                        className="w-full border p-2 rounded"
+                                        className={`w-full border p-2 rounded ${darkMode ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-800'}`}
                                         onChange={handleInputChange}
                                     />
                                 </label>
@@ -218,7 +219,7 @@ const EditBio = () => {
                                     <input
                                         type="text"
                                         name="motherName"
-                                        className="w-full border p-2 rounded"
+                                        className={`w-full border p-2 rounded ${darkMode ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-800'}`}
                                         onChange={handleInputChange}
                                     />
                                 </label>
@@ -227,7 +228,7 @@ const EditBio = () => {
                                     Permanent Division <span className="text-red-500">*</span>
                                     <select
                                         name="permanentDivision"
-                                        className="w-full border p-2 rounded"
+                                        className={`w-full border p-2 rounded ${darkMode ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-800'}`}
                                         onChange={handleInputChange}
                                         required
                                     >
@@ -246,7 +247,7 @@ const EditBio = () => {
                                     Present Division <span className="text-red-500">*</span>
                                     <select
                                         name="presentDivision"
-                                        className="w-full border p-2 rounded"
+                                        className={`w-full border p-2 rounded ${darkMode ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-800'}`}
                                         onChange={handleInputChange}
                                         required
                                     >
@@ -266,7 +267,7 @@ const EditBio = () => {
                                     <input
                                         type="number"
                                         name="expectedPartnerAge"
-                                        className="w-full border p-2 rounded"
+                                        className={`w-full border p-2 rounded ${darkMode ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-800'}`}
                                         onChange={handleInputChange}
                                     />
                                 </label>
@@ -275,7 +276,7 @@ const EditBio = () => {
                                     Expected Partner Height
                                     <select
                                         name="expectedPartnerHeight"
-                                        className="w-full border p-2 rounded"
+                                        className={`w-full border p-2 rounded ${darkMode ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-800'}`}
                                         onChange={handleInputChange}
                                     >
                                         <option value="">Select</option>
@@ -290,7 +291,7 @@ const EditBio = () => {
                                     <input
                                         type="number"
                                         name="expectedPartnerWeight"
-                                        className="w-full border p-2 rounded"
+                                        className={`w-full border p-2 rounded ${darkMode ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-800'}`}
                                         onChange={handleInputChange}
                                     />
                                 </label>
@@ -311,7 +312,7 @@ const EditBio = () => {
                                     <input
                                         type="text"
                                         name="mobileNumber"
-                                        className="w-full border p-2 rounded"
+                                        className={`w-full border p-2 rounded ${darkMode ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-800'}`}
                                         onChange={handleInputChange}
                                     />
                                 </label>
@@ -320,14 +321,14 @@ const EditBio = () => {
                             <div className="flex justify-end gap-2 mt-4">
                                 <button
                                     type="button"
-                                    className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+                                    className={`px-4 py-2 ${darkMode ? 'bg-gray-600 hover:bg-gray-700' : 'bg-gray-500 hover:bg-gray-600'} text-white rounded`}
                                     onClick={() => setShowModal(false)}
                                 >
                                     Cancel
                                 </button>
                                 <button
                                     type="submit"
-                                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                                    className={`px-4 py-2 ${darkMode ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-500 hover:bg-blue-600'} text-white rounded`}
                                 >
                                     Submit
                                 </button>

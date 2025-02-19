@@ -1,12 +1,13 @@
-
-
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { PieChart, Pie, Cell, Legend, Tooltip } from "recharts"; // Recharts for the pie chart
 import { Helmet } from "react-helmet-async";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { DarkModeContext } from "../../providers/DarkModeProvider";
+
 
 const AdminDashboard = () => {
+    const { darkMode } = useContext(DarkModeContext); // Get dark mode state
     const [totalBiodata, setTotalBiodata] = useState(0);
     const [maleBiodata, setMaleBiodata] = useState(0);
     const [femaleBiodata, setFemaleBiodata] = useState(0);
@@ -59,12 +60,14 @@ const AdminDashboard = () => {
     const COLORS = ["#0088FE", "#00C49F", "#FFBB28"];
 
     return (
-        <div className="admin-dashboard container mx-auto py-10">
+        <div className={`admin-dashboard container mx-auto py-10 ${darkMode ? 'bg-gray-900 text-white' : 'bg-white text-black'}`}>
             <Helmet>
                 <title>Admin Dashboard | SoulLink</title>
             </Helmet>
             
-            <h1 className="text-3xl font-semibold text-center mb-8">Admin Dashboard</h1>
+            <h1 className={`text-3xl font-semibold text-center mb-8 ${darkMode ? 'text-white' : 'text-black'}`}>
+                Admin Dashboard
+            </h1>
 
             {/* Pie Chart Section */}
             <div className="pie-chart-container flex justify-center mb-8">
@@ -88,26 +91,26 @@ const AdminDashboard = () => {
 
             {/* Dashboard Summary */}
             <div className="summary-cards grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div className="card bg-blue-500 text-white p-6 rounded-lg shadow-md text-center">
+                <div className={`card ${darkMode ? 'bg-blue-600' : 'bg-blue-500'} text-white p-6 rounded-lg shadow-md text-center`}>
                     <h3 className="text-2xl font-semibold">Total Biodata</h3>
                     <p className="text-xl">{totalBiodata}</p>
                 </div>
-                <div className="card bg-green-500 text-white p-6 rounded-lg shadow-md text-center">
+                <div className={`card ${darkMode ? 'bg-green-600' : 'bg-green-500'} text-white p-6 rounded-lg shadow-md text-center`}>
                     <h3 className="text-2xl font-semibold">Male Biodata</h3>
                     <p className="text-xl">{maleBiodata}</p>
                 </div>
-                <div className="card bg-pink-500 text-white p-6 rounded-lg shadow-md text-center">
+                <div className={`card ${darkMode ? 'bg-pink-600' : 'bg-pink-500'} text-white p-6 rounded-lg shadow-md text-center`}>
                     <h3 className="text-2xl font-semibold">Female Biodata</h3>
                     <p className="text-xl">{femaleBiodata}</p>
                 </div>
-                <div className="card bg-yellow-500 text-white p-6 rounded-lg shadow-md text-center">
+                <div className={`card ${darkMode ? 'bg-yellow-600' : 'bg-yellow-500'} text-white p-6 rounded-lg shadow-md text-center`}>
                     <h3 className="text-2xl font-semibold">Premium Biodata</h3>
                     <p className="text-xl">{premiumBiodataCount}</p>
                 </div>
             </div>
 
             {/* Revenue Section */}
-            <div className="revenue-card bg-gray-100 p-6 rounded-lg shadow-md mt-8 text-center">
+            <div className={`revenue-card ${darkMode ? 'bg-gray-800' : 'bg-gray-100'} p-6 rounded-lg shadow-md mt-8 text-center`}>
                 <h3 className="text-2xl font-semibold">Total Revenue</h3>
                 <p className="text-xl">${totalRevenue}</p>
             </div>

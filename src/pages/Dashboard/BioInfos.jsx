@@ -5,9 +5,12 @@ import { AuthContext } from '../../providers/AuthProvider';
 import { FaEdit, FaTimes } from 'react-icons/fa';
 import { useForm } from 'react-hook-form'; // For easier form handling
 import Swal from 'sweetalert2'; // Import SweetAlert
+import { DarkModeContext } from '../../providers/DarkModeProvider';
+
 
 const BioInfos = () => {
     const { user } = useContext(AuthContext); // Get logged-in user
+    const { darkMode } = useContext(DarkModeContext); // Get dark mode status
     const [biodata, setBiodata] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -96,10 +99,10 @@ const BioInfos = () => {
     }
 
     return (
-        <div className="container mx-auto">
+        <div className={`container mx-auto ${darkMode ? 'bg-gray-900 text-white' : 'bg-white text-black'}`}>
             <button
                 onClick={handleUpdate}
-                className="flex items-center gap-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+                className={`flex items-center gap-2 ${darkMode ? 'bg-green-600 hover:bg-green-700' : 'bg-green-500 hover:bg-green-600'} text-white px-4 py-2 rounded`}
             >
                 <FaEdit />
                 Update Biodata
@@ -108,84 +111,84 @@ const BioInfos = () => {
             {/* Modal Component */}
             {isModalOpen && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                    <div className="bg-white p-6 rounded-md w-11/12 max-w-lg">
+                    <div className={`bg-white p-6 rounded-md w-11/12 max-w-lg ${darkMode ? 'bg-gray-800' : ''}`}>
                         <div className="flex justify-between items-center mb-4">
-                            <h2 className="text-xl font-semibold">Update Your Biodata</h2>
+                            <h2 className={`text-xl font-semibold ${darkMode ? 'text-white' : 'text-black'}`}>Update Your Biodata</h2>
                             <button
                                 onClick={handleModalClose}
-                                className="text-gray-500 text-2xl hover:text-gray-700 transition duration-200"
+                                className={`text-gray-500 text-2xl hover:text-gray-700 transition duration-200 ${darkMode ? 'text-white' : 'text-black'}`}
                             >
                                 <FaTimes />
                             </button>
                         </div>
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <div className="mb-4">
-                                <label className="block font-semibold">Name</label>
+                                <label className={`block font-semibold ${darkMode ? 'text-white' : 'text-black'}`}>Name</label>
                                 <input
-                                    className="w-full p-2 border border-gray-300 rounded"
+                                    className={`w-full p-2 border ${darkMode ? 'border-gray-700 bg-gray-800 text-white' : 'border-gray-300 text-black'}`}
                                     type="text"
                                     defaultValue={biodata.name}
                                     {...register('name')}
                                 />
                             </div>
                             <div className="mb-4">
-                                <label className="block font-semibold">Biodata Type</label>
+                                <label className={`block font-semibold ${darkMode ? 'text-white' : 'text-black'}`}>Biodata Type</label>
                                 <input
-                                    className="w-full p-2 border border-gray-300 rounded"
+                                    className={`w-full p-2 border ${darkMode ? 'border-gray-700 bg-gray-800 text-white' : 'border-gray-300 text-black'}`}
                                     type="text"
                                     defaultValue={biodata.biodataType}
                                     {...register('biodataType')}
                                 />
                             </div>
                             <div className="mb-4">
-                                <label className="block font-semibold">Date of Birth</label>
+                                <label className={`block font-semibold ${darkMode ? 'text-white' : 'text-black'}`}>Date of Birth</label>
                                 <input
-                                    className="w-full p-2 border border-gray-300 rounded"
+                                    className={`w-full p-2 border ${darkMode ? 'border-gray-700 bg-gray-800 text-white' : 'border-gray-300 text-black'}`}
                                     type="date"
                                     defaultValue={biodata.dob}
                                     {...register('dob')}
                                 />
                             </div>
                             <div className="mb-4">
-                                <label className="block font-semibold">Height</label>
+                                <label className={`block font-semibold ${darkMode ? 'text-white' : 'text-black'}`}>Height</label>
                                 <input
-                                    className="w-full p-2 border border-gray-300 rounded"
+                                    className={`w-full p-2 border ${darkMode ? 'border-gray-700 bg-gray-800 text-white' : 'border-gray-300 text-black'}`}
                                     type="text"
                                     defaultValue={biodata.height}
                                     {...register('height')}
                                 />
                             </div>
                             <div className="mb-4">
-                                <label className="block font-semibold">Weight</label>
+                                <label className={`block font-semibold ${darkMode ? 'text-white' : 'text-black'}`}>Weight</label>
                                 <input
-                                    className="w-full p-2 border border-gray-300 rounded"
+                                    className={`w-full p-2 border ${darkMode ? 'border-gray-700 bg-gray-800 text-white' : 'border-gray-300 text-black'}`}
                                     type="text"
                                     defaultValue={biodata.weight}
                                     {...register('weight')}
                                 />
                             </div>
                             <div className="mb-4">
-                                <label className="block font-semibold">Occupation</label>
+                                <label className={`block font-semibold ${darkMode ? 'text-white' : 'text-black'}`}>Occupation</label>
                                 <input
-                                    className="w-full p-2 border border-gray-300 rounded"
+                                    className={`w-full p-2 border ${darkMode ? 'border-gray-700 bg-gray-800 text-white' : 'border-gray-300 text-black'}`}
                                     type="text"
                                     defaultValue={biodata.occupation}
                                     {...register('occupation')}
                                 />
                             </div>
                             <div className="mb-4">
-                                <label className="block font-semibold">Contact Email</label>
+                                <label className={`block font-semibold ${darkMode ? 'text-white' : 'text-black'}`}>Contact Email</label>
                                 <input
-                                    className="w-full p-2 border border-gray-300 rounded"
+                                    className={`w-full p-2 border ${darkMode ? 'border-gray-700 bg-gray-800 text-white' : 'border-gray-300 text-black'}`}
                                     type="email"
                                     defaultValue={biodata.contactEmail}
                                     {...register('contactEmail')}
                                 />
                             </div>
                             <div className="mb-4">
-                                <label className="block font-semibold">Mobile Number</label>
+                                <label className={`block font-semibold ${darkMode ? 'text-white' : 'text-black'}`}>Mobile Number</label>
                                 <input
-                                    className="w-full p-2 border border-gray-300 rounded"
+                                    className={`w-full p-2 border ${darkMode ? 'border-gray-700 bg-gray-800 text-white' : 'border-gray-300 text-black'}`}
                                     type="text"
                                     defaultValue={biodata.mobileNumber}
                                     {...register('mobileNumber')}
@@ -194,7 +197,7 @@ const BioInfos = () => {
                             <div className="mb-4">
                                 <button
                                     type="submit"
-                                    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                                    className={`bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 ${darkMode ? 'bg-blue-600 hover:bg-blue-700' : ''}`}
                                 >
                                     Save Changes
                                 </button>

@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../../providers/AuthProvider';
+import { DarkModeContext } from '../../providers/DarkModeProvider';
 
 
 const MyContactRequests = () => {
+    const { darkMode } = useContext(DarkModeContext); // Get dark mode state
     const [biodata, setBiodata] = useState([]);
     const [premiumData, setPremiumData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -12,14 +14,10 @@ const MyContactRequests = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // Fetch biodata data
                 const biodataResponse = await axios.get('https://soul-link-server.vercel.app/biodata');
-                console.log('Biodata fetched:', biodataResponse.data);
                 setBiodata(biodataResponse.data);
 
-                // Fetch premium data
                 const premiumResponse = await axios.get('https://soul-link-server.vercel.app/premiums');
-                console.log('Premiums fetched:', premiumResponse.data);
                 setPremiumData(premiumResponse.data);
 
                 setLoading(false);
@@ -32,49 +30,45 @@ const MyContactRequests = () => {
         fetchData();
     }, []);
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <p className={`text-center ${darkMode ? 'text-gray-300' : 'text-gray-800'}`}>Loading...</p>;
 
-    // Matching biodata with premium data based on biodataId and user email
     const matchingRequests = premiumData
         .filter(
             premium =>
-                premium.status === 'approved' && // Filter approved premiums
-                premium.userEmail === user?.email // Check if userEmail matches the logged-in user's email
+                premium.status === 'approved' &&
+                premium.userEmail === user?.email
         )
         .map(premium => {
             const matchedBiodata = biodata.find(
-                data => Number(premium.biodataId) === data.biodataId // Match biodataId
+                data => Number(premium.biodataId) === data.biodataId
             );
-            if (matchedBiodata) {
-                return { ...premium, biodata: matchedBiodata };
-            }
-            return null;
+            return matchedBiodata ? { ...premium, biodata: matchedBiodata } : null;
         })
-        .filter(request => request !== null); // Remove null entries
-
-    console.log('Matching requests:', matchingRequests);
+        .filter(request => request !== null);
 
     return (
-        <div className="py-10">
-            <h1 className="text-2xl font-bold mb-6">My Approved Contact Requests</h1>
+        <div className={`py-10 ${darkMode ? 'bg-gray-900 text-white' : 'bg-white text-black'}`}>
+            <h1 className={`text-2xl font-bold mb-6 ${darkMode ? 'text-white' : 'text-black'}`}>
+                My Approved Contact Requests
+            </h1>
 
             <table className="min-w-full table-auto border-collapse border border-gray-200">
                 <thead>
-                    <tr>
-                        <th className="px-4 py-2 border">Premium ID</th>
-                        <th className="px-4 py-2 border">User Email</th>
-                        <th className="px-4 py-2 border">Amount</th>
-                        <th className="px-4 py-2 border">Date Approved</th>
-                        <th className="px-4 py-2 border">Partner's Name</th>
-                        <th className="px-4 py-2 border">Occupation</th>
-                        <th className="px-4 py-2 border">Contact Email</th>
-                        <th className="px-4 py-2 border">Mobile Number</th>
+                    <tr className={darkMode ? 'bg-gray-800' : 'bg-gray-100'}>
+                        <th className={`px-4 py-2 border ${darkMode ? 'text-gray-300' : 'text-gray-800'}`}>Premium ID</th>
+                        <th className={`px-4 py-2 border ${darkMode ? 'text-gray-300' : 'text-gray-800'}`}>User Email</th>
+                        <th className={`px-4 py-2 border ${darkMode ? 'text-gray-300' : 'text-gray-800'}`}>Amount</th>
+                        <th className={`px-4 py-2 border ${darkMode ? 'text-gray-300' : 'text-gray-800'}`}>Date Approved</th>
+                        <th className={`px-4 py-2 border ${darkMode ? 'text-gray-300' : 'text-gray-800'}`}>Partner's Name</th>
+                        <th className={`px-4 py-2 border ${darkMode ? 'text-gray-300' : 'text-gray-800'}`}>Occupation</th>
+                        <th className={`px-4 py-2 border ${darkMode ? 'text-gray-300' : 'text-gray-800'}`}>Contact Email</th>
+                        <th className={`px-4 py-2 border ${darkMode ? 'text-gray-300' : 'text-gray-800'}`}>Mobile Number</th>
                     </tr>
                 </thead>
                 <tbody>
                     {matchingRequests.length > 0 ? (
                         matchingRequests.map(request => (
-                            <tr key={request._id}>
+                            <tr key={request._id} className={darkMode ? 'bg-gray-800' : 'bg-white'}>
                                 <td className="px-4 py-2 border">{request.paymentId}</td>
                                 <td className="px-4 py-2 border">{request.userEmail}</td>
                                 <td className="px-4 py-2 border">${request.amount}</td>
@@ -89,7 +83,7 @@ const MyContactRequests = () => {
                         ))
                     ) : (
                         <tr>
-                            <td colSpan="8" className="text-center py-2">
+                            <td colSpan="8" className={`text-center py-2 ${darkMode ? 'text-gray-300' : 'text-gray-800'}`}>
                                 No approved contact requests found
                             </td>
                         </tr>

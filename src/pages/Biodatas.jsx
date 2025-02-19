@@ -1,8 +1,11 @@
 import { useLoaderData, Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Helmet } from "react-helmet-async";
+import { DarkModeContext } from "../providers/DarkModeProvider";
+
 
 const Biodatas = () => {
+    const { darkMode } = useContext(DarkModeContext); // Get dark mode state
     const allBiodatas = useLoaderData();
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 6;
@@ -53,18 +56,18 @@ const Biodatas = () => {
     );
 
     return (
-        <div className="container mx-auto my-10 flex gap-8">
+        <div className={`container mx-auto my-10 flex gap-8 ${darkMode ? 'bg-gray-900 text-white' : 'bg-white text-black'}`}>
             <Helmet>
                 <title>SoulLink | Biodatas</title>
             </Helmet>
 
             {/* Sidebar Filters */}
-            <div className="w-1/4 bg-gray-100 p-6 rounded-lg shadow-md">
+            <div className={`w-1/4 p-6 rounded-lg shadow-md ${darkMode ? 'bg-gray-800 text-white' : 'bg-gray-100 text-black'}`}>
                 <h2 className="text-xl font-semibold mb-4">Filters</h2>
 
                 {/* Age Range Filter */}
                 <div className="mb-4">
-                    <label className="block font-semibold mb-2">Age Range</label>
+                    <label className={`block font-semibold mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Age Range</label>
                     <input
                         type="range"
                         name="ageRange"
@@ -76,9 +79,9 @@ const Biodatas = () => {
                             const value = [Number(e.target.value), filters.ageRange[1]];
                             setFilters((prev) => ({ ...prev, ageRange: value }));
                         }}
-                        className="w-full"
+                        className={`w-full ${darkMode ? 'bg-gray-700' : 'bg-gray-200'}`}
                     />
-                    <div className="flex justify-between text-sm mt-1">
+                    <div className={`flex justify-between text-sm mt-1 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                         <span>{filters.ageRange[0]}</span>
                         <span>{filters.ageRange[1]}</span>
                     </div>
@@ -86,12 +89,12 @@ const Biodatas = () => {
 
                 {/* Biodata Type Filter */}
                 <div className="mb-4">
-                    <label className="block font-semibold mb-2">Biodata Type</label>
+                    <label className={`block font-semibold mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Biodata Type</label>
                     <select
                         name="type"
                         value={filters.type}
                         onChange={handleFilterChange}
-                        className="w-full border border-gray-300 rounded-md p-2"
+                        className={`w-full border rounded-md p-2 ${darkMode ? 'bg-gray-700 text-gray-200' : 'bg-white text-black border-gray-300'}`}
                     >
                         <option value="all">All</option>
                         <option value="Male">Male</option>
@@ -101,12 +104,12 @@ const Biodatas = () => {
 
                 {/* Division Filter */}
                 <div className="mb-4">
-                    <label className="block font-semibold mb-2">Division</label>
+                    <label className={`block font-semibold mb-2 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Division</label>
                     <select
                         name="division"
                         value={filters.division}
                         onChange={handleFilterChange}
-                        className="w-full border border-gray-300 rounded-md p-2"
+                        className={`w-full border rounded-md p-2 ${darkMode ? 'bg-gray-700 text-gray-200' : 'bg-white text-black border-gray-300'}`}
                     >
                         <option value="all">All Divisions</option>
                         <option value="Dhaka">Dhaka</option>
@@ -123,13 +126,13 @@ const Biodatas = () => {
                 <div className="mb-4">
                     <button
                         onClick={handleSortAscending}
-                        className="w-full mb-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
+                        className={`w-full mb-2 px-4 py-2 ${darkMode ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-500 hover:bg-blue-600'} text-white rounded-md`}
                     >
                         Ascending Age
                     </button>
                     <button
                         onClick={handleSortDescending}
-                        className="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
+                        className={`w-full px-4 py-2 ${darkMode ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-500 hover:bg-blue-600'} text-white rounded-md`}
                     >
                         Descending Age
                     </button>
@@ -142,7 +145,7 @@ const Biodatas = () => {
                     {paginatedBiodatas.map((biodata, index) => (
                         <div
                             key={index}
-                            className="bg-white rounded-lg shadow-md p-4 flex flex-col items-center"
+                            className={`bg-white rounded-lg shadow-md p-4 flex flex-col items-center ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}
                         >
                             <img
                                 src={biodata.profileImage || "https://via.placeholder.com/150"}
@@ -150,21 +153,21 @@ const Biodatas = () => {
                                 className="w-32 h-32 rounded-full mb-4 object-cover"
                             />
                             <h3 className="font-bold text-lg">{biodata.biodataType}</h3>
-                            <p className="text-gray-600 text-sm">
+                            <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                                 <strong>Biodata ID:</strong> {biodata.biodataId}
                             </p>
-                            <p className="text-gray-600 text-sm">
+                            <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                                 <strong>Division:</strong> {biodata.permanentDivision}
                             </p>
-                            <p className="text-gray-600 text-sm">
+                            <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                                 <strong>Age:</strong> {biodata.age}
                             </p>
-                            <p className="text-gray-600 text-sm">
+                            <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                                 <strong>Occupation:</strong> {biodata.occupation}
                             </p>
                             <Link
                                 to={`/bioDetails/${biodata._id}`}
-                                className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+                                className={`mt-4 px-4 py-2 ${darkMode ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-600 hover:bg-blue-700'} text-white rounded-md`}
                             >
                                 View Profile
                             </Link>
@@ -177,16 +180,14 @@ const Biodatas = () => {
                     <button
                         disabled={currentPage === 1}
                         onClick={() => setCurrentPage((prev) => prev - 1)}
-                        className={`px-4 py-2 mr-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition ${currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
-                            }`}
+                        className={`px-4 py-2 mr-2 ${darkMode ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-600 hover:bg-blue-700'} text-white rounded-md`}
                     >
                         Previous
                     </button>
                     <button
                         disabled={currentPage === totalPages}
                         onClick={() => setCurrentPage((prev) => prev + 1)}
-                        className={`px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition ${currentPage === totalPages ? "opacity-50 cursor-not-allowed" : ""
-                            }`}
+                        className={`px-4 py-2 ${darkMode ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-600 hover:bg-blue-700'} text-white rounded-md`}
                     >
                         Next
                     </button>

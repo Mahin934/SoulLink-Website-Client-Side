@@ -6,11 +6,13 @@ import Lottie from "lottie-react";
 import { AuthContext } from "../providers/AuthProvider";
 import { Helmet } from "react-helmet-async";
 import useAxiosPublic from "../hooks/useAxiosPublic";
+import { DarkModeContext } from "../providers/DarkModeProvider";
 
 
 const Register = () => {
+    const { darkMode } = useContext(DarkModeContext); // Access dark mode state
     const { createNewUser, setUser, updateUserProfile, googleSignIn } = useContext(AuthContext);
-    const axiosPublic = useAxiosPublic(); // Access the axiosPublic instance
+    const axiosPublic = useAxiosPublic();
 
     const [errorMessage, setErrorMessage] = useState("");
     const [showPassword, setShowPassword] = useState(false);
@@ -44,10 +46,7 @@ const Register = () => {
             const user = result.user;
             setUser(user);
 
-            // Update user profile with name and photo
             await updateUserProfile({ displayName: name, photoURL: photo });
-
-            // Send user data to the server
             await axiosPublic.post("/users", { name, email });
 
             navigate("/"); // Redirect to the homepage
@@ -62,8 +61,7 @@ const Register = () => {
             const user = result.user;
             setUser(user);
 
-            // Send user data to the server
-            await useAxiosPublic.post("/users", { name: user.displayName, email: user.email });
+            await axiosPublic.post("/users", { name: user.displayName, email: user.email });
 
             navigate("/"); // Redirect to the homepage
         } catch (error) {
@@ -72,52 +70,52 @@ const Register = () => {
     };
 
     return (
-        <div className="flex flex-col md:flex-row items-center justify-center py-20 gap-10">
+        <div className={`flex flex-col md:flex-row items-center justify-center py-20 gap-10 ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
             <Helmet>
                 <title>SoulLink | Register</title>
             </Helmet>
-            <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-                <h1 className="text-center text-2xl pt-8 font-bold">Register your account</h1>
+            <div className={`card w-full max-w-sm shrink-0 shadow-2xl ${darkMode ? 'bg-gray-900 text-white' : 'bg-base-100 text-black'}`}>
+                <h1 className={`text-center text-2xl pt-8 font-bold ${darkMode ? 'text-white' : 'text-black'}`}>Register your account</h1>
                 <div className="divider px-8 mb-0"></div>
                 <form onSubmit={handleSubmit} className="card-body">
                     <div className="form-control">
-                        <label className="label">
+                        <label className={`label ${darkMode ? 'text-gray-300' : 'text-gray-800'}`}>
                             <span className="label-text font-bold">Your Name</span>
                         </label>
                         <input
                             type="text"
                             name="name"
                             placeholder="Enter your name"
-                            className="input input-bordered"
+                            className={`input input-bordered ${darkMode ? 'bg-gray-700 text-white' : 'bg-white text-black'}`}
                             required
                         />
                     </div>
                     <div className="form-control">
-                        <label className="label">
+                        <label className={`label ${darkMode ? 'text-gray-300' : 'text-gray-800'}`}>
                             <span className="label-text font-bold">Photo URL</span>
                         </label>
                         <input
                             type="text"
                             name="photo"
                             placeholder="Your Photo URL"
-                            className="input input-bordered"
+                            className={`input input-bordered ${darkMode ? 'bg-gray-700 text-white' : 'bg-white text-black'}`}
                             required
                         />
                     </div>
                     <div className="form-control">
-                        <label className="label">
+                        <label className={`label ${darkMode ? 'text-gray-300' : 'text-gray-800'}`}>
                             <span className="label-text font-bold">Email address</span>
                         </label>
                         <input
                             type="email"
                             name="email"
                             placeholder="Enter your email address"
-                            className="input input-bordered"
+                            className={`input input-bordered ${darkMode ? 'bg-gray-700 text-white' : 'bg-white text-black'}`}
                             required
                         />
                     </div>
                     <div className="form-control">
-                        <label className="label">
+                        <label className={`label ${darkMode ? 'text-gray-300' : 'text-gray-800'}`}>
                             <span className="label-text font-bold">Password</span>
                         </label>
                         <div className="relative">
@@ -125,7 +123,7 @@ const Register = () => {
                                 type={showPassword ? "text" : "password"}
                                 name="password"
                                 placeholder="Enter your password"
-                                className="input input-bordered w-full pr-10"
+                                className={`input input-bordered w-full pr-10 ${darkMode ? 'bg-gray-700 text-white' : 'bg-white text-black'}`}
                                 required
                             />
                             <span
@@ -140,18 +138,18 @@ const Register = () => {
                         <p className="text-red-500 text-xs text-center">{errorMessage}</p>
                     )}
                     <div className="form-control mt-6">
-                        <button className="btn bg-[#403F3F] text-white">Register</button>
+                        <button className={`btn ${darkMode ? 'bg-[#403F3F] text-white' : 'bg-[#403F3F] text-white'}`}>Register</button>
                     </div>
                     <div className="form-control mt-4">
                         <button
                             type="button"
                             onClick={handleGoogleSignIn}
-                            className="btn btn-outline bg-blue-500 text-white"
+                            className={`btn btn-outline bg-blue-500 text-white ${darkMode ? 'hover:bg-blue-700' : 'hover:bg-blue-600'}`}
                         >
                             Sign Up with Google
                         </button>
                     </div>
-                    <p className="text-center pt-4 text-xs">
+                    <p className={`text-center pt-4 text-xs ${darkMode ? 'text-gray-300' : 'text-gray-800'}`}>
                         Already Have An Account?{" "}
                         <Link className="text-red-500" to="/login">
                             Login

@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Swal from 'sweetalert2'; 
 import useAxiosSecure from '../../hooks/useAxiosSecure';
+import { DarkModeContext } from '../../providers/DarkModeProvider';
+
 
 const ApprovedPremium = () => {
+    const { darkMode } = useContext(DarkModeContext); // Get dark mode state
     const axiosSecure = useAxiosSecure();
     const [paymentData, setPaymentData] = useState([]);
     const [premiumsData, setPremiumsData] = useState([]); 
@@ -75,20 +78,20 @@ const ApprovedPremium = () => {
         }
     };
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <p className={`text-center ${darkMode ? 'text-gray-300' : 'text-gray-800'}`}>Loading...</p>;
 
     return (
-        <div className="py-10">
-            <h1 className="text-2xl font-bold mb-6">Approved Premium Payments</h1>
+        <div className={`py-10 ${darkMode ? 'bg-gray-900 text-white' : 'bg-white text-black'}`}>
+            <h1 className={`text-2xl font-bold mb-6 ${darkMode ? 'text-white' : 'text-black'}`}>Approved Premium Payments</h1>
 
-            <table className="min-w-full table-auto">
+            <table className={`min-w-full table-auto ${darkMode ? 'text-gray-300' : 'text-gray-800'}`}>
                 <thead>
                     <tr>
-                        <th className="px-4 py-2 border">Payment ID</th>
-                        <th className="px-4 py-2 border">User Email</th>
-                        <th className="px-4 py-2 border">Amount</th>
-                        <th className="px-4 py-2 border">Biodata ID</th>
-                        <th className="px-4 py-2 border">Actions</th>
+                        <th className={`px-4 py-2 border ${darkMode ? 'border-gray-600' : 'border-gray-300'}`}>Payment ID</th>
+                        <th className={`px-4 py-2 border ${darkMode ? 'border-gray-600' : 'border-gray-300'}`}>User Email</th>
+                        <th className={`px-4 py-2 border ${darkMode ? 'border-gray-600' : 'border-gray-300'}`}>Amount</th>
+                        <th className={`px-4 py-2 border ${darkMode ? 'border-gray-600' : 'border-gray-300'}`}>Biodata ID</th>
+                        <th className={`px-4 py-2 border ${darkMode ? 'border-gray-600' : 'border-gray-300'}`}>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -101,12 +104,12 @@ const ApprovedPremium = () => {
                             );
 
                             return (
-                                <tr key={payment._id}>
-                                    <td className="px-4 py-2 border">{payment._id}</td>
-                                    <td className="px-4 py-2 border">{payment.userEmail}</td>
-                                    <td className="px-4 py-2 border">${payment.amount}</td>
-                                    <td className="px-4 py-2 border">{payment.biodataId}</td>
-                                    <td className="px-4 py-2 border">
+                                <tr key={payment._id} className={`${darkMode ? 'bg-gray-800' : 'bg-white'} transition-colors duration-300`}>
+                                    <td className={`px-4 py-2 border ${darkMode ? 'border-gray-600' : 'border-gray-300'}`}>{payment._id}</td>
+                                    <td className={`px-4 py-2 border ${darkMode ? 'border-gray-600' : 'border-gray-300'}`}>{payment.userEmail}</td>
+                                    <td className={`px-4 py-2 border ${darkMode ? 'border-gray-600' : 'border-gray-300'}`}>${payment.amount}</td>
+                                    <td className={`px-4 py-2 border ${darkMode ? 'border-gray-600' : 'border-gray-300'}`}>{payment.biodataId}</td>
+                                    <td className={`px-4 py-2 border ${darkMode ? 'border-gray-600' : 'border-gray-300'}`}>
                                         <button
                                             onClick={() => handleApprovePremium(payment)}
                                             className={`py-1 px-4 rounded-md ${isApproved
@@ -123,7 +126,7 @@ const ApprovedPremium = () => {
                         })
                     ) : (
                         <tr>
-                            <td colSpan="5" className="text-center py-2">No data available</td>
+                            <td colSpan="5" className={`text-center py-2 ${darkMode ? 'text-gray-300' : 'text-gray-800'}`}>No data available</td>
                         </tr>
                     )}
                 </tbody>

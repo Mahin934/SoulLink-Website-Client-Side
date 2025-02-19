@@ -3,18 +3,17 @@ import "animate.css";
 import { useContext, useState } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import Swal from "sweetalert2";
+import { DarkModeContext } from "../providers/DarkModeProvider";
+
 
 const NavBar = () => {
     const { user, logOut } = useContext(AuthContext);
+    const { darkMode, setDarkMode } = useContext(DarkModeContext);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const location = useLocation();
 
-    const toggleDropdown = () => {
-        setDropdownOpen((prev) => !prev);
-    };
-
-    const closeDropdown = () => {
-        setDropdownOpen(false);
+    const toggleDarkMode = () => {
+        setDarkMode((prev) => !prev);
     };
 
     const handleLogout = () => {
@@ -42,25 +41,25 @@ const NavBar = () => {
             <li>
                 <NavLink
                     to="/"
-                    onClick={closeDropdown}
+                    onClick={() => setDropdownOpen(false)}
                     className={({ isActive }) =>
                         isActive
-                            ? "text-white font-semibold rounded-full shadow-md bg-gradient-to-r from-blue-300 via-sky-500 to-indigo-500 hover:from-blue-400 hover:via-sky-600 hover:to-indigo-600 transition px-4 py-2"
-                            : "hover:bg-gray-200 px-4 py-2 rounded-full transition"
+                            ? "text-white bg-blue-500 px-4 py-2 rounded-full"
+                            : "hover:bg-gray-200 dark:hover:bg-gray-700 px-4 py-2 rounded-full transition"
                     }
                 >
                     Home
                 </NavLink>
             </li>
-            {user && user?.email && (
+            {user?.email && (
                 <li>
                     <NavLink
                         to="/biodata"
-                        onClick={closeDropdown}
+                        onClick={() => setDropdownOpen(false)}
                         className={({ isActive }) =>
                             isActive
-                                ? "text-white font-semibold rounded-full shadow-md bg-gradient-to-r from-blue-300 via-sky-500 to-indigo-500 hover:from-blue-400 hover:via-sky-600 hover:to-indigo-600 transition px-4 py-2"
-                                : "hover:bg-gray-200 px-4 py-2 rounded-full transition"
+                                ? "text-white bg-blue-500 px-4 py-2 rounded-full"
+                                : "hover:bg-gray-200 dark:hover:bg-gray-700 px-4 py-2 rounded-full transition"
                         }
                     >
                         Biodatas
@@ -70,11 +69,11 @@ const NavBar = () => {
             <li>
                 <NavLink
                     to="/aboutUs"
-                    onClick={closeDropdown}
+                    onClick={() => setDropdownOpen(false)}
                     className={({ isActive }) =>
                         isActive
-                            ? "text-white font-semibold rounded-full shadow-md bg-gradient-to-r from-blue-300 via-sky-500 to-indigo-500 hover:from-blue-400 hover:via-sky-600 hover:to-indigo-600 transition px-4 py-2"
-                            : "hover:bg-gray-200 px-4 py-2 rounded-full transition"
+                            ? "text-white bg-blue-500 px-4 py-2 rounded-full"
+                            : "hover:bg-gray-200 dark:hover:bg-gray-700 px-4 py-2 rounded-full transition"
                     }
                 >
                     About Us
@@ -83,25 +82,25 @@ const NavBar = () => {
             <li>
                 <NavLink
                     to="/contactUs"
-                    onClick={closeDropdown}
+                    onClick={() => setDropdownOpen(false)}
                     className={({ isActive }) =>
                         isActive
-                            ? "text-white font-semibold rounded-full shadow-md bg-gradient-to-r from-blue-300 via-sky-500 to-indigo-500 hover:from-blue-400 hover:via-sky-600 hover:to-indigo-600 transition px-4 py-2"
-                            : "hover:bg-gray-200 px-4 py-2 rounded-full transition"
+                            ? "text-white bg-blue-500 px-4 py-2 rounded-full"
+                            : "hover:bg-gray-200 dark:hover:bg-gray-700 px-4 py-2 rounded-full transition"
                     }
                 >
                     Contact Us
                 </NavLink>
             </li>
-            {user && user?.email && (
+            {user?.email && (
                 <li>
                     <NavLink
                         to="/dashboard"
-                        onClick={closeDropdown}
+                        onClick={() => setDropdownOpen(false)}
                         className={({ isActive }) =>
                             isActive
-                                ? "text-white font-semibold rounded-full shadow-md bg-gradient-to-r from-blue-300 via-sky-500 to-indigo-500 hover:from-blue-400 hover:via-sky-600 hover:to-indigo-600 transition px-4 py-2"
-                                : "hover:bg-gray-200 px-4 py-2 rounded-full transition"
+                                ? "text-white bg-blue-500 px-4 py-2 rounded-full"
+                                : "hover:bg-gray-200 dark:hover:bg-gray-700 px-4 py-2 rounded-full transition"
                         }
                     >
                         Dashboard
@@ -112,7 +111,7 @@ const NavBar = () => {
     );
 
     return (
-        <div className="fixed top-0 left-0 w-full z-50 bg-gradient-to-r from-blue-400 to-indigo-600 shadow-md">
+        <div className={`fixed top-0 left-0 bg-gradient-to-r from-blue-400 to-indigo-600 w-full z-50 ${darkMode ? "bg-gray-900 text-white" : "bg-white text-black"} shadow-md`}>
             <div className="navbar p-0 md:py-2 md:container mx-auto">
                 <div className="navbar-start">
                     <div className="dropdown">
@@ -120,7 +119,7 @@ const NavBar = () => {
                             tabIndex={0}
                             role="button"
                             className="btn btn-ghost lg:hidden"
-                            onClick={toggleDropdown}
+                            onClick={() => setDropdownOpen((prev) => !prev)}
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -129,41 +128,36 @@ const NavBar = () => {
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
                             >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M4 6h16M4 12h8m-8 6h16"
-                                />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
                             </svg>
                         </div>
                         {dropdownOpen && (
                             <ul
                                 tabIndex={0}
-                                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+                                className="menu menu-sm dropdown-content bg-base-100 dark:bg-gray-800 rounded-box z-[1] mt-3 w-52 p-2 shadow"
                             >
                                 {links}
                             </ul>
                         )}
                     </div>
                     <a className="btn border-none text-white font-semibold md:text-2xl bg-gradient-to-r from-blue-300 via-sky-500 to-indigo-500 animate__hinge">
-                        <img src="https://i.ibb.co.com/kKVs0Rx/Screenshot-2025-01-16-180017.png" alt="" className="w-7 rounded-lg" />
+                        <img src="https://i.ibb.co/kKVs0Rx/Screenshot-2025-01-16-180017.png" alt="" className="w-7 rounded-lg" />
                         SoulLink
                     </a>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal space-x-3 px-1">{links}</ul>
                 </div>
-                <div className="navbar-end">
-                    {user && user?.email ? (
-                        <div className="flex justify-center gap-1 md:gap-3 items-center">
-                            <div className="relative group">
-                                <img className="w-10 h-10 rounded-full" src={user.photoURL || "/default-avatar.png"} alt="User Avatar" />
-                                <div className="absolute top-12 left-1/2 transform -translate-x-1/2 w-max bg-gray-800 text-white text-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
-                                    {user.displayName}
-                                </div>
-                            </div>
-                            <button onClick={handleLogout} className="btn btn-primary rounded-full">
+                <div className="navbar-end flex gap-4">
+                    {/* Dark Mode Toggle Button */}
+                    <button onClick={toggleDarkMode} className="btn btn-primary px-4">
+                        {darkMode ? "☀️" : "🌙"}
+                    </button>
+
+                    {user ? (
+                        <div className="flex items-center gap-3">
+                            <img className="w-10 h-10 rounded-full" src={user.photoURL || "/default-avatar.png"} alt="User Avatar" />
+                            <button onClick={handleLogout} className="btn btn-primary">
                                 Log Out
                             </button>
                         </div>

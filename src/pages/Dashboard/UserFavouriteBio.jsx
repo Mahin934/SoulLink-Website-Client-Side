@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import useAuth from "../../hooks/useAuth";
 import SectionTitle from "../SectionTitle";
+import { DarkModeContext } from "../../providers/DarkModeProvider";
+
 
 const UserFavouriteBio = () => {
     const { user } = useAuth(); // Access the logged-in user's data
     const axiosPublic = useAxiosPublic(); // Axios instance for public requests
     const [favourites, setFavourites] = useState([]); // State to store favorite biodata
     const [loading, setLoading] = useState(true);
+
+    const { darkMode } = useContext(DarkModeContext); // Get dark mode state
 
     useEffect(() => {
         const fetchFavourites = async () => {
@@ -77,7 +81,7 @@ const UserFavouriteBio = () => {
                     <div className="overflow-x-auto">
                         <table className="table-auto w-full text-left border-collapse border border-gray-200">
                             <thead>
-                                <tr className="bg-gray-200 text-gray-800">
+                                <tr className={`${darkMode ? 'bg-gray-800 text-gray-300' : 'bg-gray-200 text-gray-800'}`}>
                                     <th className="px-4 py-2 border">Biodata ID</th>
                                     <th className="px-4 py-2 border">Type</th>
                                     <th className="px-4 py-2 border">Image</th>
@@ -89,9 +93,9 @@ const UserFavouriteBio = () => {
                             </thead>
                             <tbody>
                                 {favourites.map((fav, index) => (
-                                    <tr key={fav._id} className={index % 2 === 0 ? "bg-white" : "bg-gray-100"}>
-                                        <td className="px-4 py-2 border">{fav.biodataId}</td>
-                                        <td className="px-4 py-2 border">{fav.biodataType}</td>
+                                    <tr key={fav._id} className={index % 2 === 0 ? `${darkMode ? 'bg-gray-700' : 'bg-white'}` : `${darkMode ? 'bg-gray-600' : 'bg-gray-100'}`}>
+                                        <td className={`px-4 py-2 border ${darkMode ? 'text-gray-300' : 'text-gray-800'}`}>{fav.biodataId}</td>
+                                        <td className={`px-4 py-2 border ${darkMode ? 'text-gray-300' : 'text-gray-800'}`}>{fav.biodataType}</td>
                                         <td className="px-4 py-2 border">
                                             <img
                                                 src={fav.profileImage || "https://via.placeholder.com/100?text=No+Image"}
@@ -99,9 +103,9 @@ const UserFavouriteBio = () => {
                                                 className="w-16 h-16 rounded"
                                             />
                                         </td>
-                                        <td className="px-4 py-2 border">{fav.permanentDivision}</td>
-                                        <td className="px-4 py-2 border">{fav.age}</td>
-                                        <td className="px-4 py-2 border">{fav.occupation}</td>
+                                        <td className={`px-4 py-2 border ${darkMode ? 'text-gray-300' : 'text-gray-800'}`}>{fav.permanentDivision}</td>
+                                        <td className={`px-4 py-2 border ${darkMode ? 'text-gray-300' : 'text-gray-800'}`}>{fav.age}</td>
+                                        <td className={`px-4 py-2 border ${darkMode ? 'text-gray-300' : 'text-gray-800'}`}>{fav.occupation}</td>
                                         <td className="px-4 py-2 border">
                                             <button
                                                 onClick={() => handleDelete(fav._id)}
@@ -117,10 +121,10 @@ const UserFavouriteBio = () => {
                     </div>
                 ) : (
                     <div className="text-center mt-10">
-                        <h2 className="text-2xl font-bold text-gray-800">
+                        <h2 className={`text-2xl font-bold ${darkMode ? 'text-gray-300' : 'text-gray-800'}`}>
                             You have no favourite biodata.
                         </h2>
-                        <p className="text-gray-600 mt-2">
+                        <p className={`text-gray-600 mt-2 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                             Start adding biodata to your favourites to see them here.
                         </p>
                     </div>
