@@ -23,7 +23,7 @@ const Banner = () => {
                 {/* Slide 1 */}
                 <SwiperSlide className="relative">
                     <img
-                        src="https://png.pngtree.com/thumb_back/fh260/back_our/20190620/ourmid/pngtree-wedding-ceremony-illustration-flower-rotten-marriage-fair-e-commerce-banner-image_168887.jpg"
+                        src="https://i.ibb.co.com/YBhzdWkm/bnr1.jpg"
                         alt="SoulLink: Find Your Match"
                         className="w-full h-full object-cover rounded-lg"
                     />
@@ -42,7 +42,7 @@ const Banner = () => {
                 {/* Slide 2 */}
                 <SwiperSlide className="relative">
                     <img
-                        src="https://png.pngtree.com/thumb_back/fw800/background/20231230/pngtree-artistically-crafted-wedding-instagram-post-with-intricate-hand-drawn-textures-image_13906260.png"
+                        src="https://i.ibb.co.com/NgkwzTBG/3450.jpg"
                         alt="SoulLink: Personalized Matches"
                         className="w-full h-full object-cover rounded-lg"
                     />
@@ -61,7 +61,7 @@ const Banner = () => {
                 {/* Slide 3 */}
                 <SwiperSlide className="relative">
                     <img
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6JGjLYKJnIq3uqZy5A5O3XIG1cD1yfIFDxYXI8AtB8M3xpvNa1TpFsVT2uoy4zJPFgag&usqp=CAU"
+                        src="https://i.ibb.co.com/qM0dxg8T/bnr3.jpg"
                         alt="SoulLink: Celebrate Love"
                         className="w-full h-full object-cover rounded-lg"
                     />
