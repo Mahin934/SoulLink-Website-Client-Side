@@ -3,15 +3,15 @@ import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 
 const Biodatas = () => {
-    const allBiodatas = useLoaderData(); 
-    const [currentPage, setCurrentPage] = useState(1); 
-    const itemsPerPage = 6; 
-    const totalPages = Math.ceil(allBiodatas.length / itemsPerPage); 
+    const allBiodatas = useLoaderData();
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 6;
+    const totalPages = Math.ceil(allBiodatas.length / itemsPerPage);
 
     const [filters, setFilters] = useState({
-        ageRange: [18, 60], 
-        type: "all", 
-        division: "all", 
+        ageRange: [18, 60],
+        type: "all",
+        division: "all",
     });
 
     const [filteredBiodatas, setFilteredBiodatas] = useState(allBiodatas);
@@ -177,18 +177,16 @@ const Biodatas = () => {
                     <button
                         disabled={currentPage === 1}
                         onClick={() => setCurrentPage((prev) => prev - 1)}
-                        className={`px-4 py-2 mr-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition ${
-                            currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
-                        }`}
+                        className={`px-4 py-2 mr-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition ${currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
+                            }`}
                     >
                         Previous
                     </button>
                     <button
                         disabled={currentPage === totalPages}
                         onClick={() => setCurrentPage((prev) => prev + 1)}
-                        className={`px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition ${
-                            currentPage === totalPages ? "opacity-50 cursor-not-allowed" : ""
-                        }`}
+                        className={`px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition ${currentPage === totalPages ? "opacity-50 cursor-not-allowed" : ""
+                            }`}
                     >
                         Next
                     </button>

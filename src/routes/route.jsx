@@ -24,6 +24,7 @@ import ContactUs from "../pages/ContactUs";
 import AdminDashboard from "../pages/Dashboard/AdminDashboard";
 import UserDashboard from "../pages/Dashboard/UserDashboard";
 import AdminSuccessStory from "../pages/Dashboard/AdminSuccessStory";
+import AdminProfile from "../pages/Dashboard/AdminProfile";
 
 const route = createBrowserRouter([
     {
@@ -91,6 +92,10 @@ const route = createBrowserRouter([
         {
             path: "adminSuccess",
             element: <AdminRoute><AdminSuccessStory></AdminSuccessStory></AdminRoute>,
+        },
+        {
+            path: "adminProfile",
+            element: <AdminRoute><AdminProfile></AdminProfile></AdminRoute>,
         },
         // Normal Users
         {

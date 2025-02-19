@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom";
-import { FaUserEdit, FaEye, FaUserFriends, FaHeart, FaSignOutAlt, FaHome, FaUserShield, FaUsers, FaStar, FaEnvelopeOpen } from "react-icons/fa";
+import { FaUserEdit, FaEye, FaUserFriends, FaHeart, FaSignOutAlt, FaHome, FaUserShield, FaUsers, FaStar, FaEnvelopeOpen, FaUser } from "react-icons/fa";
 import { MdCheckCircleOutline } from "react-icons/md";
 import useAdmin from "../hooks/useAdmin";
 import { AuthContext } from "../providers/AuthProvider";
@@ -45,7 +45,20 @@ const Dashboard = () => {
                                     }
                                 >
                                     <FaUserShield size={20} />
-                                    Admin Dashboard
+                                    Admin Dashboard Overview
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                    to="/dashboard/adminProfile"
+                                    className={({ isActive }) =>
+                                        isActive
+                                            ? "flex items-center gap-3 bg-blue-700 p-3 rounded"
+                                            : "flex items-center gap-3 hover:bg-blue-600 p-3 rounded"
+                                    }
+                                >
+                                    <FaUser size={20} />
+                                    Admin Profile
                                 </NavLink>
                             </li>
                             <li>
