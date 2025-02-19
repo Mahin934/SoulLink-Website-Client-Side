@@ -52,19 +52,21 @@ const NavBar = () => {
                     Home
                 </NavLink>
             </li>
-            <li>
-                <NavLink
-                    to="/biodata"
-                    onClick={closeDropdown}
-                    className={({ isActive }) =>
-                        isActive
-                            ? "text-white font-semibold rounded-full shadow-md bg-gradient-to-r from-blue-300 via-sky-500 to-indigo-500 hover:from-blue-400 hover:via-sky-600 hover:to-indigo-600 transition px-4 py-2"
-                            : "hover:bg-gray-200 px-4 py-2 rounded-full transition"
-                    }
-                >
-                    Biodatas
-                </NavLink>
-            </li>
+            {user && user?.email && (
+                <li>
+                    <NavLink
+                        to="/biodata"
+                        onClick={closeDropdown}
+                        className={({ isActive }) =>
+                            isActive
+                                ? "text-white font-semibold rounded-full shadow-md bg-gradient-to-r from-blue-300 via-sky-500 to-indigo-500 hover:from-blue-400 hover:via-sky-600 hover:to-indigo-600 transition px-4 py-2"
+                                : "hover:bg-gray-200 px-4 py-2 rounded-full transition"
+                        }
+                    >
+                        Biodatas
+                    </NavLink>
+                </li>
+            )}
             <li>
                 <NavLink
                     to="/aboutUs"
@@ -91,19 +93,21 @@ const NavBar = () => {
                     Contact Us
                 </NavLink>
             </li>
-            <li>
-                <NavLink
-                    to="/dashboard"
-                    onClick={closeDropdown}
-                    className={({ isActive }) =>
-                        isActive
-                            ? "text-white font-semibold rounded-full shadow-md bg-gradient-to-r from-blue-300 via-sky-500 to-indigo-500 hover:from-blue-400 hover:via-sky-600 hover:to-indigo-600 transition px-4 py-2"
-                            : "hover:bg-gray-200 px-4 py-2 rounded-full transition"
-                    }
-                >
-                    Dashboard
-                </NavLink>
-            </li>
+            {user && user?.email && (
+                <li>
+                    <NavLink
+                        to="/dashboard"
+                        onClick={closeDropdown}
+                        className={({ isActive }) =>
+                            isActive
+                                ? "text-white font-semibold rounded-full shadow-md bg-gradient-to-r from-blue-300 via-sky-500 to-indigo-500 hover:from-blue-400 hover:via-sky-600 hover:to-indigo-600 transition px-4 py-2"
+                                : "hover:bg-gray-200 px-4 py-2 rounded-full transition"
+                        }
+                    >
+                        Dashboard
+                    </NavLink>
+                </li>
+            )}
         </>
     );
 
