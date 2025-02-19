@@ -4,7 +4,6 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import Swal from "sweetalert2";
 
-
 const NavBar = () => {
     const { user, logOut } = useContext(AuthContext);
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -21,7 +20,6 @@ const NavBar = () => {
     const handleLogout = () => {
         logOut()
             .then(() => {
-                // SweetAlert success message
                 Swal.fire({
                     icon: "success",
                     title: "Logged Out",
@@ -31,7 +29,6 @@ const NavBar = () => {
                 });
             })
             .catch((error) => {
-                // SweetAlert error message
                 Swal.fire({
                     icon: "error",
                     title: "Error",
@@ -110,11 +107,9 @@ const NavBar = () => {
         </>
     );
 
-
     return (
-        <div className="fixed top-0 left-0 w-full z-50 bg-base-100">
-            <div className="navbar p-0 md:p-2 md:container mx-auto">
-                {/* Navbar start */}
+        <div className="fixed top-0 left-0 w-full z-50 bg-gradient-to-r from-blue-400 to-indigo-600 shadow-md">
+            <div className="navbar p-0 md:py-2 md:container mx-auto">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div
@@ -147,57 +142,31 @@ const NavBar = () => {
                             </ul>
                         )}
                     </div>
-                    {/* Added "FundFusion" section */}
-                    <a
-                        className="btn border-none text-white font-semibold md:text-2xl bg-gradient-to-r from-blue-300 via-sky-500 to-indigo-500 animate__hinge"
-                    >
+                    <a className="btn border-none text-white font-semibold md:text-2xl bg-gradient-to-r from-blue-300 via-sky-500 to-indigo-500 animate__hinge">
                         <img src="https://i.ibb.co.com/kKVs0Rx/Screenshot-2025-01-16-180017.png" alt="" className="w-7 rounded-lg" />
                         SoulLink
                     </a>
                 </div>
-
-                {/* Navbar center */}
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal space-x-3 px-1">{links}</ul>
                 </div>
-
-                {/* Navbar end */}
                 <div className="navbar-end">
                     {user && user?.email ? (
                         <div className="flex justify-center gap-1 md:gap-3 items-center">
                             <div className="relative group">
-                                <img
-                                    className="w-10 h-10 rounded-full"
-                                    src={user.photoURL || "/default-avatar.png"}
-                                    alt="User Avatar"
-                                />
-                                <div
-                                    className="absolute top-12 left-1/2 transform -translate-x-1/2 w-max bg-gray-800 text-white text-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity"
-                                >
+                                <img className="w-10 h-10 rounded-full" src={user.photoURL || "/default-avatar.png"} alt="User Avatar" />
+                                <div className="absolute top-12 left-1/2 transform -translate-x-1/2 w-max bg-gray-800 text-white text-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
                                     {user.displayName}
                                 </div>
                             </div>
-                            <button
-                                onClick={handleLogout}
-                                className="btn btn-primary rounded-full"
-                            >
+                            <button onClick={handleLogout} className="btn btn-primary rounded-full">
                                 Log Out
                             </button>
                         </div>
                     ) : (
                         <div className="join animate__heartBeat">
-                            <Link
-                                to="/register"
-                                className="btn join-item rounded-l-full btn-primary"
-                            >
-                                Sign Up
-                            </Link>
-                            <Link
-                                to="/login"
-                                className="btn join-item border rounded-r-full border-gray-300 text-gray-700"
-                            >
-                                Log in
-                            </Link>
+                            <Link to="/register" className="btn join-item rounded-l-full btn-primary">Sign Up</Link>
+                            <Link to="/login" className="btn join-item border rounded-r-full border-gray-300 text-gray-700">Log in</Link>
                         </div>
                     )}
                 </div>
