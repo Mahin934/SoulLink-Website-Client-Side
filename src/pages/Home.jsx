@@ -4,6 +4,7 @@ import PremiumCards from "./PremiumCards";
 import HowItWorks from "./HowItWorks";
 import SuccessCounter from "./SuccessCounter";
 import SuccessStory from "./SuccessStory";
+import MembershipBenefits from "./MembershipBenefits";
 
 
 const Home = () => {
@@ -26,6 +27,9 @@ const Home = () => {
             </div>
             <div className="py-16">
                 <SuccessStory></SuccessStory>
+            </div>
+            <div className="py-16">
+                <MembershipBenefits></MembershipBenefits>
             </div>
         </div>
     );
